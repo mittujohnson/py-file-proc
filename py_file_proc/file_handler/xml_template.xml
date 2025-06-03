@@ -1,0 +1,14 @@
+<!--
+This is a template for generating an XML file.
+The 'records' element is where the data rows will be inserted.
+Each row will be represented by a 'record' element,
+and its fields will be child elements.
+-->
+<data_export>
+    <metadata>
+        <generated_at>{{ current_timestamp }}</generated_at>
+        <source>PostgreSQL Database</source>
+    </metadata>
+    <records>
+        </records>
+</data_export>

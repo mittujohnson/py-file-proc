@@ -1,0 +1,5 @@
+# requirements.txt
+psycopg2-binary==2.9.9 # For PostgreSQL connectivity
+requests==2.31.0      # For making HTTP requests to the API
+python-dotenv==1.0.0  # For loading environment variables from .env file
+lxml==4.9.3           # New: For XML parsing and generation
