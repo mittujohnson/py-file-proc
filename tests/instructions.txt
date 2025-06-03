@@ -1,0 +1,6 @@
+To run these tests:
+
+Make sure you have psycopg2-binary, requests, python-dotenv, and lxml installed (as per the requirements.txt).
+Navigate to the root directory of your project (the one containing your_project_name/ and tests/).
+Run the tests using the command: python -m unittest discover tests
+This command will find and execute all tests within the tests/ directory.
