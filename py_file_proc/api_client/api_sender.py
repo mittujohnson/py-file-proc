@@ -60,6 +60,86 @@ def upload_file_to_api(filepath: str, api_endpoint: str = settings.API_ENDPOINT,
         print(f"Error reading file {filepath}: {e}")
         return False
 
+
+def call_post_api(url, parameters):
+    """
+    Calls an API endpoint with a POST request and prints the returned value.
+
+    Args:
+        url (str): The URL of the API endpoint.
+        parameters (dict): A dictionary of parameters to send in the POST request body.
+    """
+    try:
+        # Send the POST request
+        # The 'json' parameter automatically sets Content-Type to application/json
+        response = requests.post(url, json=parameters)
+
+        # Raise an HTTPError for bad responses (4xx or 5xx)
+        response.raise_for_status()
+
+        print(f"Status Code: {response.status_code}")
+        print("Response Body:")
+
+        # Try to parse the response as JSON
+        try:
+            json_response = response.json()
+            print(json.dumps(json_response, indent=4))
+        except json.JSONDecodeError:
+            # If it's not JSON, print the raw text
+            print(response.text)
+
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")  # e.g. 404, 500
+        if response is not None:
+            print("Response body (if available):")
+            print(response.text)
+    except requests.exceptions.ConnectionError as conn_err:
+        print(f"Connection error occurred: {conn_err}")  # e.g. DNS failure, refused connection
+    except requests.exceptions.Timeout as timeout_err:
+        print(f"Timeout error occurred: {timeout_err}")
+    except requests.exceptions.RequestException as req_err:
+        print(f"An unexpected error occurred: {req_err}")
+
+def call_get_api(url, parameters=None):
+    """
+    Calls an API endpoint with a GET request and prints the returned value.
+
+    Args:
+        url (str): The URL of the API endpoint.
+        parameters (dict, optional): A dictionary of parameters to send as query strings.
+                                     Defaults to None.
+    """
+    try:
+        # Send the GET request
+        # The 'params' parameter automatically appends query parameters to the URL
+        response = requests.get(url, params=parameters)
+
+        # Raise an HTTPError for bad responses (4xx or 5xx)
+        response.raise_for_status()
+
+        print(f"Status Code: {response.status_code}")
+        print("Response Body:")
+
+        # Try to parse the response as JSON
+        try:
+            json_response = response.json()
+            print(json.dumps(json_response, indent=4))
+        except json.JSONDecodeError:
+            # If it's not JSON, print the raw text
+            print(response.text)
+
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")  # e.g. 404, 500
+        if response is not None:
+            print("Response body (if available):")
+            print(response.text)
+    except requests.exceptions.ConnectionError as conn_err:
+        print(f"Connection error occurred: {conn_err}")  # e.g. DNS failure, refused connection
+    except requests.exceptions.Timeout as timeout_err:
+        print(f"Timeout error occurred: {timeout_err}")
+    except requests.exceptions.RequestException as req_err:
+        print(f"An unexpected error occurred: {req_err}")
+        
 # Example usage
 if __name__ == "__main__":
     # Create a dummy file for testing
